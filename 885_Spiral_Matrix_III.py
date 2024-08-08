@@ -18,20 +18,18 @@ class Solution(object):
     def spiralMatrixIII(self, rows, cols, rStart, cStart):
         # Initialize result list with the starting position
         result = [[rStart, cStart]]
+        position = [rStart, cStart]
+        print(f"Start + {position}")
 
         # Define directions:
         directions = [
             # (x, y)
             (1, 0),  # East
-            (0, 1),  # South
+            (0, -1),  # South
             (-1, 0),  # West
-            (0, -1),  # North
+            (0, 1),  # North
         ]
-
-        # Initialize variables for the spiral walk
-        steps = 0
-        direction = 0
-        position = [rStart, cStart]
+        steps = [1, 1, 2, 2]
 
         def walk(position, direction):
             position[0] += direction[0]
@@ -40,15 +38,14 @@ class Solution(object):
             return position
 
         while len(result) < rows * cols:
-            # move in spiral
-            position = walk(position, directions[0])
-            # if new_position in grid -> add to result
+            for direction, step in zip(directions, steps):
+                for _ in range(step):
+                    position = walk(position, direction)
+                    print(position)
+                    if -1 < position[0] < cols and -1 < position[1] < rows:
+                        result.append(position[:])  # Append a copy of the position
 
-            # continue until fill out results
-            pass
-
-        print(result[0])
-        print(walk(result[0], directions[0]))
+            steps = [s + 2 for s in steps]
 
         return result
 
@@ -59,15 +56,13 @@ def run_test_case(rows, cols, rStart, cStart):
     print(f"Input: rows = {rows}, cols = {cols}, rStart = {rStart}, cStart = {cStart}")
     result = sol.spiralMatrixIII(rows, cols, rStart, cStart)
 
-    # print(f"Output: {result}")
-    # print(f"Number of positions visited: {len(result)}")
-    # print("Expected number of positions:", rows * cols)
+    print(f"Output: {result}")
     print()
 
 
 # Easy test case
-run_test_case(1, 4, 0, 0)
-run_test_case(1, 4, 0, 3)
+# run_test_case(1, 4, 0, 0)
+run_test_case(1, 4, 3, 0)
 
 # # Medium test case
 # print("Medium Test Case:")
