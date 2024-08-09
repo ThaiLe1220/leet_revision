@@ -19,15 +19,14 @@ class Solution(object):
         # Initialize result list with the starting position
         result = [[rStart, cStart]]
         position = [rStart, cStart]
-        print(f"Start + {position}")
 
         # Define directions:
         directions = [
-            # (x, y)
-            (1, 0),  # East
-            (0, -1),  # South
-            (-1, 0),  # West
-            (0, 1),  # North
+            # (row, col)
+            (0, 1),  # East
+            (1, 0),  # South
+            (0, -1),  # West
+            (-1, 0),  # North
         ]
         steps = [1, 1, 2, 2]
 
@@ -41,9 +40,9 @@ class Solution(object):
             for direction, step in zip(directions, steps):
                 for _ in range(step):
                     position = walk(position, direction)
-                    print(position)
-                    if -1 < position[0] < cols and -1 < position[1] < rows:
-                        result.append(position[:])  # Append a copy of the position
+                    # print(position)
+                    if -1 < position[0] < rows and -1 < position[1] < cols:
+                        result.append(position[:])
 
             steps = [s + 2 for s in steps]
 
@@ -56,18 +55,15 @@ def run_test_case(rows, cols, rStart, cStart):
     print(f"Input: rows = {rows}, cols = {cols}, rStart = {rStart}, cStart = {cStart}")
     result = sol.spiralMatrixIII(rows, cols, rStart, cStart)
 
-    print(f"Output: {result}")
+    print(f"Total: {len(result)}")
     print()
 
 
 # Easy test case
-# run_test_case(1, 4, 0, 0)
-run_test_case(1, 4, 3, 0)
+run_test_case(1, 4, 0, 3)
 
 # # Medium test case
-# print("Medium Test Case:")
-# run_test_case(5, 6, 1, 4)
+run_test_case(5, 6, 1, 4)
 
 # # Hard test case
-# print("Hard Test Case:")
-# run_test_case(50, 50, 25, 25)
+run_test_case(50, 50, 25, 25)
