@@ -13,27 +13,13 @@ class Solution(object):
         count = 0
         rows = len(grid)
         cols = len(grid[0])
-        print()
-        print(rows, "x", cols, end="\n\n")
 
-        # may be first check if how many 3x3 can be fit into grid
-        # numbers of 3x3 grid = (rows - 3) * (cols - 3)
-        # in the meantime also check for valid 3x3
-        # start with only accepting number from 1 to 9
-        # then we check for diagonals rules of sum
-        # return the magic square count
         if rows < 3 or cols < 3:
             return 0
         else:
-            # find 3x3 edge
             for r in range(2, rows):
                 for c in range(2, cols):
-                    print(r - 2, "x", c - 2, end=" | ")
-                    print(r, "x", c, end=" | ")
-                    print(r - 1, "x", c - 1, end=" | ")
-                    print("{", grid[r - 1][c - 1], "}")
-
-                    if grid[r - 1][c - 1] != 5:
+                    if grid[r - 2][c - 2] == grid[r - 1][c - 1] == grid[r][c]:
                         break
 
                     diagonal_1 = grid[r - 2][c - 2] + grid[r][c] + 5
@@ -57,8 +43,7 @@ class Solution(object):
                         and 0 < grid[r - 1][c - 2] < 10
                         and 0 < grid[r - 2][c - 1] < 10
                     ):
-                        print(grid[r - 2][c - 2], "+", grid[r][c], end=" | ")
-                        print(grid[r - 2][c], "+", grid[r][c - 2])
+
                         count += 1
 
             return count
@@ -77,21 +62,21 @@ def test_solution():
     grid2 = [[5, 5, 5], [5, 5, 5], [5, 5, 5]]
     assert solution.numMagicSquaresInside(grid2) == 0
 
-    # # Hard test case
-    # grid3 = [
-    #     [2, 7, 6, 9, 5, 1, 4, 3, 8],
-    #     [6, 1, 8, 7, 5, 3, 2, 9, 4],
-    #     [7, 5, 3, 2, 9, 4, 8, 6, 1],
-    #     [6, 4, 5, 1, 8, 9, 3, 2, 7],
-    #     [5, 9, 1, 7, 3, 2, 6, 4, 8],
-    #     [3, 8, 2, 4, 6, 5, 1, 7, 9],
-    #     [9, 3, 4, 6, 2, 7, 5, 8, 1],
-    #     [1, 6, 7, 5, 4, 8, 9, 3, 2],
-    #     [8, 2, 9, 3, 1, 6, 7, 5, 4],
-    # ]
-    # assert solution.numMagicSquaresInside(grid3) == 9
+    # Hard test case
+    grid3 = [
+        [2, 7, 6, 9, 5, 1, 4, 3, 8],
+        [6, 1, 8, 7, 5, 3, 2, 9, 4],
+        [7, 5, 3, 2, 9, 4, 8, 6, 1],
+        [6, 4, 5, 1, 8, 9, 3, 2, 7],
+        [5, 9, 1, 7, 3, 2, 6, 4, 8],
+        [3, 8, 2, 4, 6, 5, 1, 7, 9],
+        [9, 3, 4, 6, 2, 7, 5, 8, 1],
+        [1, 6, 7, 5, 4, 8, 9, 3, 2],
+        [8, 2, 9, 3, 1, 6, 7, 5, 4],
+    ]
+    assert solution.numMagicSquaresInside(grid3) == 0
 
-    # print("All tests passed!")
+    print("All tests passed!")
 
 
 test_solution()
